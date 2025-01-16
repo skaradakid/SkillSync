@@ -1,9 +1,11 @@
 import pyrebase
 from firebase import firebaseconfig
-from firebase_admin import credentails, db
+
 
 firebase = pyrebase.initialize_app(firebaseconfig)
-auth=firebase.auth()
+auth = firebase.auth()
+db = firebase.database()
+
 
 def login():
     print("log in")
@@ -11,6 +13,7 @@ def login():
     password = input("input password>>")
     try:
         user = auth.sign_in_with_email_and_password(email, password)
+        print("login successful!")
     except:
         print("email already exists or in incorrect")
     return
@@ -22,7 +25,12 @@ def signup():
     password = input("input password>>")
     try:
         user = auth.create_user_with_email_and_password(email, password)
-        print("log in successful")
+        user_data = {
+            "email": email,
+            "uid": user['localId']
+        }
+        db.child("users").child(user['localId']).set(user_data)
+        print(f"User {email} created and data saved to database.")
     except:
         print("invalid email or password")
     return
