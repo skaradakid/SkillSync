@@ -1,10 +1,10 @@
 import pyrebase
-from firebase import firebaseconfig
+from firebase import firebaseConfig
 
 
-firebase = pyrebase.initialize_app(firebaseconfig)
+firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
-db = firebase.database()
+
 
 
 def login():
@@ -29,7 +29,6 @@ def signup():
             "email": email,
             "uid": user['localId']
         }
-        db.child("users").child(user['localId']).set(user_data)
         print(f"User {email} created and data saved to database.")
     except:
         print("invalid email or password")
