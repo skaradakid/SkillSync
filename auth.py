@@ -1,11 +1,24 @@
 import pyrebase
-from Firebase import firebaseConfig
+from Firebase import FirebaseConfig
 
-firebase = pyrebase.initialize_app(firebaseConfig)
+firebase = pyrebase.initialize_app(FirebaseConfig)
 auth=firebase.auth()
 
 def login():
-    pass
+    print("login here!")
+    email = input("enter your email here> ")
+    password = input("input a password> ")
+    while True:
+        role = input("input your role here, choose from either mentor or peer>")
+        if role.lower() in ("mentor", "peer"):
+            break
+    try:
+        login = auth.sign_in_with_email_and_password(email, password)
+        print("login successful!")
+        return email, password, role
+    except:
+        print("something went wrong, check spelling and try again")
+    return
 
 def signup():
     print("signup here!")
@@ -17,7 +30,8 @@ def signup():
             break
     try:
         user = auth.create_user_with_email_and_password(email, password)
-        print("login successful!")
+        print("signup successful!")
+        return email, password, role
     except:
         print("email already exists")
     return
