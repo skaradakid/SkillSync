@@ -1,0 +1,4 @@
+firebase_admin = 6.6.0
+firebase = 4.0.1
+pyrebase4 = 4.8.0
+setuptools = 75.8.0
