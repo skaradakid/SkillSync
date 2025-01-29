@@ -29,7 +29,6 @@ def main():
         service=build('calendar','v3',credentials=creds)
 
 
-#####################################################################################################################################
         event= {
             'summary': "test_my_event",
             'location':'Online',
