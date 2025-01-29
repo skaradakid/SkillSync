@@ -56,20 +56,6 @@ def main():
         event= service.events().insert(calendarId='primary',body=event).execute()
         print(f"Event created {event.get('htmlLink')}")
 
-
-#####################################################################################################################################
-        # now= dt.datetime.now().isoformat()+'Z'
-        # event_result=service.events().list(calendarId='primary', timeMin=now, maxResults=508, singleEvents=True, orderBy='startTime').execute()
-        # events=event_result.get('items',[])
-
-        # if not events:
-        #     print('No upcoming events found!!!!')
-        #     return
-        # for event in events:
-        #     start= event['start'].get('dateTime',event['start'].get('date'))
-        #     print(start,event['summary'])
-
-######################################################################################################################################
     except HttpError as error:
         print("an error has occurred",  error)
 
