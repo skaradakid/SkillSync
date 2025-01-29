@@ -1,6 +1,4 @@
 import os.path
-import datetime as dt
-
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -27,7 +25,6 @@ def main():
 
     try:
         service=build('calendar','v3',credentials=creds)
-
 
         event= {
             'summary': "test_my_event",
@@ -58,7 +55,6 @@ def main():
 
     except HttpError as error:
         print("an error has occurred",  error)
-
 
 
 if __name__== "__main__":
