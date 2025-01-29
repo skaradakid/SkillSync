@@ -1,5 +1,5 @@
 import pyrebase
-from Firebase import firebaseConfig
+from Secret_Files.Firebase import firebaseConfig
 from database import save
 
 firebase = pyrebase.initialize_app(firebaseConfig)

@@ -1,7 +1,7 @@
 import firebase_admin
 from firebase_admin import credentials, db
 
-cred = credentials.Certificate("service_account_key.json")
+cred = credentials.Certificate("Secret_Files\service_account_key.json")
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://skillsync-706d4-default-rtdb.firebaseio.com/'})
 

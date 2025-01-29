@@ -7,20 +7,20 @@ from googleapiclient.errors import HttpError
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
-def main():
+def main(meeting_emails):
     creds= None
 
-    if os.path.exists('token.json'):
-        creds=Credentials.from_authorized_user_file('token.json')
+    if os.path.exists('Secret_Files/token.json'):
+        creds=Credentials.from_authorized_user_file('Secret_Files/token.json')
 
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file('credentials.json',SCOPES)
+            flow = InstalledAppFlow.from_client_secrets_file('Secret_Files/credentials.json',SCOPES)
             creds= flow.run_local_server(port=0)
 
-        with open('token.json','w') as token:
+        with open('Secret_Files/token.json','w') as token:
             token.write(creds.to_json())
 
     try:
@@ -43,11 +43,14 @@ def main():
                 "RULE:FREQ=DAILY;count=1"
 
             ],
-            'attendees':[
-                {'email':'hashaikjhb024@student.wethinkcode.co.za'},
-                {'email':'hrehhferjjnjjsd@gmail.com'},
-                {'email':'nhdsinsudihufnvnfirdnr@gmail.com'}
-            ]
+            'attendees':meeting_emails
+            
+# import create_meetings
+# mail=[
+#                 {'email':'hrehhferjjnjjsd@gmail.com'},
+#                 {'email':'nhdsinsudihufnvnfirdnr@gmail.com'}
+#             ]
+# create_meetings.main(mail)
         }
 
         event= service.events().insert(calendarId='primary',body=event).execute()
