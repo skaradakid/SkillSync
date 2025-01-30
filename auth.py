@@ -1,9 +1,21 @@
 import pyrebase
-from Firebase import FirebaseConfig
+import booking
 from database import save
+
+# Firebase configuration
+FirebaseConfig = {
+    "apiKey": "AIzaSyAWzyRl5iSWIcu8K2uN5Avzwoz2h9IeE-I",
+  "authDomain": "skillsync-706d4.firebaseapp.com",
+  "databaseURL": "https://skillsync-706d4-default-rtdb.firebaseio.com",
+  "projectId": "skillsync-706d4",
+  "storageBucket": "skillsync-706d4.firebasestorage.app",
+  "messagingSenderId": "822785045283",
+  "appId": "1:822785045283:web:84b3de62fe16a15db45296"
+}
 
 firebase = pyrebase.initialize_app(FirebaseConfig)
 auth=firebase.auth()
+db = firebase.database()
 
 def login():
     print("login here!")
@@ -12,6 +24,7 @@ def login():
     try:
         user = auth.sign_in_with_email_and_password(email, password)
         print("login successful!")
+        booking.find_users_document(user, db)
     except:
         print("something went wrong, check spelling and try again")
     return
@@ -28,7 +41,8 @@ def signup():
     try:
         user = auth.create_user_with_email_and_password(email, password)
         print("signup successful!")
-        save(name, email, password, role)
+        save(user['localId'],name, email, password, role)
+        booking.find_users_document(user, db)
     except:
         print("email already exists")
     return
