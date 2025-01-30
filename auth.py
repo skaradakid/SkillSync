@@ -1,8 +1,8 @@
 import pyrebase
-from Firebase import FirebaseConfig
+from Secret_Files.Firebase import firebaseConfig
 from database import save
 
-firebase = pyrebase.initialize_app(FirebaseConfig)
+firebase = pyrebase.initialize_app(firebaseConfig)
 auth=firebase.auth()
 
 def login():
